@@ -46,13 +46,13 @@ class Transaction_Husky(object):
                         
                     else:
                         tmp_data.append(float(doc(td).text()))
-                if len(tmp_data) > 0:
+                if len(tmp_data) > 1:
                     stock_data.append(tmp_data)
-            dataframe = DataFrame(stock_data,columns = columns)
+            dataframe = DataFrame(stock_data,columns = columns).sort(columns = 'date')
             return dataframe
         except Exception,e:
             traceback.print_exc()
-            print 'Husky Parse Data Error: %s !' % e
+            print 'Transaction Husky Parse Data Error: %s !' % e
             return None
             
     #获得季度的股票交易数据
@@ -60,12 +60,13 @@ class Transaction_Husky(object):
         try:
             url = 'http://money.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/%s.phtml?year=%s&jidu=%s' %(self.stockid,year,quarter)
             request = urllib2.Request(url)
+        
             resp = urllib2.urlopen(request)
             data = resp.read()
             return self.parse_data(data.decode('gb2312','ignore'))
         except Exception,e:
             traceback.print_exc()
-            print 'Husky Get Quarter Data Error: year:%s, quarter:%s !' % (year,quarter)
+            print 'Transaction Husky Get Quarter Data Error: year:%s, quarter:%s !' % (year,quarter)
             print e
             return None
         
