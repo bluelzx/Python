@@ -74,10 +74,7 @@ class WebSpyder(object):
         except Exception as err:
             if retries == 0:raise err
             return self.get_htmldata(url,post_data,retries-1)
-    
-    
-    def get_token(self):
-        
+   
 
 if __name__ == '__main__':
     a= WebSpyder()
