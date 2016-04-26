@@ -66,8 +66,8 @@ def history_date(stock_id):
     df = df.sort_index(by=['date'],ascending=True)
     X = df['close'].values
     #Y = df['date'].apply(lambda x:time.strptime(x,'%Y-%m-%d')).values
-    #plt.plot(X)
-    plt.plot(quad_smooth(X,10))
+    plt.plot(X)
+    plt.plot(quad_smooth(X,1000))
 if __name__ == '__main__':
     history_date('000001')
     
