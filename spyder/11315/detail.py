@@ -42,31 +42,52 @@ class ParseDetail(object):
         company_name = unicode(trs[0].find('th',attrs={'class':'th01'}).string.strip())
         ps = trs[1].findAll('p')
         
-        #企业法人        
-        owner = ParseDetail.__get_data_from_style__(ps[0].attrs['style'])
+        #企业法人
+        try:
+            owner = ParseDetail.__get_data_from_style__(ps[0].attrs['style'])
+        except:
+            owner = ''
         
-        #注册资本        
-        capital = ParseDetail.__get_data_from_style__(ps[1].attrs['style'])
+        #注册资本
+        try:
+            capital = ParseDetail.__get_data_from_style__(ps[1].attrs['style'])
+        except:
+            capital = ''
         
-        #行业        
-        industry = unicode(trs[2].find('td').string.strip())
+        #行业  
+        try:
+            industry = unicode(trs[2].find('td').string.strip())
+        except:
+            industry = ''
         
-        #号码        
+        #号码   
         phones = []
-        for p in trs[3].findAll('p'):
-            phones.append(ParseDetail.__get_data_from_style__(p.attrs['style']))
+        try:
+            for p in trs[3].findAll('p'):
+                phones.append(ParseDetail.__get_data_from_style__(p.attrs['style']))
+        except:
+            pass
           
         #区域
-        area = ParseDetail.__get_data_from_style__(trs[5].findAll('p')[0].attrs['style'])
-        
+        try:
+            area = ParseDetail.__get_data_from_style__(trs[5].findAll('p')[0].attrs['style'])
+        except:
+            area = ''
         #地址
-        location = unicode(trs[6].findAll('td')[0].contents[0] .strip())
-        
+        try:
+            location = unicode(trs[6].findAll('td')[0].contents[0] .strip())
+        except:
+            location = ''
         #主营产品
-        products = ParseDetail.__get_data_from_style__(trs[7].findAll('p')[0].attrs['style'])
-        
+        try:
+            products = ParseDetail.__get_data_from_style__(trs[7].findAll('p')[0].attrs['style'])
+        except:
+            products = ''
         #链接
-        href = trs[8].findAll('a')[0].attrs['href']    
+        try:
+            href = trs[8].findAll('a')[0].attrs['href'] 
+        except:
+            href = ''
         result = {}
         result[u'公司名称'] = company_name
         result[u'企业法人'] = owner
