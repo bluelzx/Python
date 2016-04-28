@@ -37,8 +37,19 @@ def quad_smooth(x,delta):
     return np.dot(tmp,x.T)
 
 
-def draw_pic():
-    pass
+def grads(X,epslon=0.0001):
+    n = len(X)
+    Y = map(lambda i:0 if i == 0 else (X[i]-X[i-1])*100/X[i-1],[i for i in range(n)])
+    Z = map(lambda i:0 if i == 0 else Y[i]-Y[i-1],[i for i in range(n)])
+    plt.plot(Y)
+    plt.plot(Z)
+    plt.plot(X)
+    max_min = []
+    for i in xrange(1,n):
+        if abs(X[i]-X[i-1])/X[i-1] <= epslon:
+            max_min.append(i)
+    return float(max_min[-1]-max_min[0])/len(max_min),len(max_min)
+    #
 
 def get_data(stock_id,date):
     if os.path.exists(stock_id+'_'+date+'.xlsx'):
@@ -66,8 +77,8 @@ def history_date(stock_id):
     df = df.sort_index(by=['date'],ascending=True)
     X = df['close'].values
     #Y = df['date'].apply(lambda x:time.strptime(x,'%Y-%m-%d')).values
-    plt.plot(X)
-    plt.plot(quad_smooth(X,1000))
+    #plt.plot(X)
+    print grads(quad_smooth(X,50))
 if __name__ == '__main__':
     history_date('000001')
     
