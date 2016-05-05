@@ -7,6 +7,8 @@ Created on Thu Apr 21 10:08:31 2016
 @description: 这是一个下载网页内容的程序
 """
 
+import StringIO
+import gzip
 import urllib2,urllib,cookielib
 #from urllib2 import Request,HTTPError
 from urllib2 import build_opener
@@ -56,8 +58,22 @@ class WebSpyder(object):
         for cookie in self.cookies:
             cookies_str += cookie.name+'='+cookie.value+';'
         return cookies_str
-    
-    
+        
+    #解压gzip  
+    def __gzdecode__(self,data) :  
+        compressedstream = StringIO.StringIO(data)  
+        gziper = gzip.GzipFile(fileobj=compressedstream)    
+        data2 = gziper.read()   # 读取解压缩后数据   
+        return data2  
+        
+    def get_data(self,url,post_data=None,retries=3):
+        '''返回数据，包括解压gzip'''
+        data = self.get_htmldata(url,post_data,retries)
+        try:
+            return self.__gzdecode__(data)
+        except:
+            return data
+        
     def get_htmldata(self,url,post_data=None,retries=3):
         '''返回HTML的数据'''
         result = None
