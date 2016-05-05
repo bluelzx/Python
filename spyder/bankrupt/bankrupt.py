@@ -15,7 +15,7 @@ from WebSpyder import WebSpyder
 from bs4 import BeautifulSoup
 
 webspyder = WebSpyder()
-DAY = 3
+DAY = 10
 
 #解压gzip  
 def gzdecode(data) :  
@@ -102,7 +102,7 @@ if __name__ == '__main__':
         #print s
         for k,v in s.iteritems():
             if k == 'id':continue
-            f.write(k.encode('gbk')+':'+v.encode('gbk')+';')
+            f.write(k.encode('gbk','ignore')+':'+v.encode('gbk','ignore')+';')
         f.write('\n')
     f.write(u'*'*100+'\n\n')
     f.close()
