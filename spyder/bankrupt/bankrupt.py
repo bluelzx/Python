@@ -15,7 +15,11 @@ from WebSpyder import WebSpyder
 from bs4 import BeautifulSoup
 
 webspyder = WebSpyder()
+<<<<<<< HEAD
 DAY = 5
+=======
+DAY = 10
+>>>>>>> origin/master
 
 #解压gzip  
 def gzdecode(data) :  
@@ -101,8 +105,13 @@ if __name__ == '__main__':
     for s in fayuan:
         #print s
         for k,v in s.iteritems():
+<<<<<<< HEAD
             if k in keys:
                 f.write(k.encode('gbk')+':'+v.encode('gbk')+';')
+=======
+            if k == 'id':continue
+            f.write(k.encode('gbk','ignore')+':'+v.encode('gbk','ignore')+';')
+>>>>>>> origin/master
         f.write('\n')
     f.write(u'*'*100+'\n\n')
     f.close()

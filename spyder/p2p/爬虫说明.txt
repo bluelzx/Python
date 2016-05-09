@@ -1,0 +1,10 @@
+关于构建爬虫的问题：
+1.可以使用selenium+python来使用浏览器来访问网页
+这么做的好处：只要浏览器能打开的网站，程序也能打开，这样就可以进行抓取了
+需要安装不同的浏览器驱动，我这里安装的是chromedriver
+Mac下面使用：
+brew install chromedriver（已经安装homebrew）
+
+2.也可以使用phantomjs来进行解析
+phantomjs可以解析js代码，得到渲染后的网页内容
+这样可以下载更多的动态网页
